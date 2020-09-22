@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "mathformula-demo"
+    }
+  },
+  "defaultProject": "mathformula-demo",
+  "cli": {
+    "analytics": "887fb6ee-5ebb-46b2-8255-7b08ceaaf82b"
+  }
 }
