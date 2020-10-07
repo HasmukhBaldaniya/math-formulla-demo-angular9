@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('ediorRef', { static: true }) editor;
+
   config;
+  innerHtml;
+  innerText;
 
   editorForm: FormGroup;
 
@@ -28,17 +32,39 @@ export class AppComponent implements OnInit {
       plugins: [
         'advlist autolink lists link image charmap print preview anchor image',
         'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount preview codesample',
+        'insertdatetime media table paste code help wordcount preview codesample textpattern',
       ],
       external_plugins: {
         tiny_mce_wiris: 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js',
       },
-
       toolbar:
         'formatselect | bold italic backcolor | \
       alignleft aligncenter alignright alignjustify | \
       bullist numlist outdent indent | subScript SuperScript tiny_mce_wiris_formulaEditor link image tinydrive | undo redo removeformat code preview codesample | help',
+      textpattern_patterns: [
+        {start: '*', end: '*', format: 'italic'},
+        {start: '**', end: '**', format: 'bold'},
+        {start: '~', end: '~', cmd: 'createLink', value: 'https://tiny.cloud'},
+        {start: '*', end: '*', format: 'italic'},
+        {start: '**', end: '**', format: 'bold'},
+        {start: '#', format: 'h1'},
+        {start: '##', format: 'h2'},
+        {start: '###', format: 'h3'},
+        {start: '####', format: 'h4'},
+        {start: '#####', format: 'h5'},
+        {start: '######', format: 'h6'},
+        {start: '1. ', cmd: 'InsertOrderedList'},
+        {start: '* ', cmd: 'InsertUnorderedList'},
+        {start: '- ', cmd: 'InsertUnorderedList'},
+        {start: '1. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'decimal' }},
+        {start: '1) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'decimal' }},
+        {start: 'a. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-alpha' }},
+        {start: 'a) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-alpha' }},
+        {start: 'i. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-roman' }},
+        {start: 'i) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-roman' }}
+      ],
       language: 'en_GB',
+      forced_root_block: "p",
       tinydrive_token_provider(success, failure) {
         success({
           token:
@@ -66,6 +92,20 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitForm(form: FormGroup) {
-    console.log('form =>', form.value.editor);
+    // console.log('form =>', this.editor);
+    console.log('Html =>', JSON.stringify(this.innerHtml));
+    // console.log('form =>', this.innerText);
+  }
+
+  handleEvent(event) {
+    //  this.innerHtml = event.editor.editorContainer.innerHTML;
+    //   this.innerText = event.editor.editorContainer.innerText;
+    console.log('selection change', event);
+  }
+
+  onGetContent(event) {
+    this.innerHtml = event.event.content;
+    console.log('editor', event);
+    console.log('editor', event.event.target.undoManager.data);
   }
 }

@@ -1,6 +1,6 @@
 <form [formGroup]="editorForm" (ngSubmit)="onSubmitForm(editorForm)" >
     <div>
-        <editor formControlName="editor" [init]="config"></editor>
+        <editor formControlName="editor" #ediorRef (onPreviewFormats)="handleEvent($event)" (onGetContent)="onGetContent($event)" [init]="config"></editor>
     </div>
 
     <div style="margin-top: 10px;">
