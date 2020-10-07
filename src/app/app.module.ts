@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MarkdownComponent } from './md2html/markdown.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MarkdownComponent
   ],
   imports: [
     BrowserModule,

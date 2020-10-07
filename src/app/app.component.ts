@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import html2markdown from 'html2markdown';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,8 @@ export class AppComponent implements OnInit {
   @ViewChild('ediorRef', { static: true }) editor;
 
   config;
-  innerHtml;
-  innerText;
+  markDownContent;
+  htmlContent;
 
   editorForm: FormGroup;
 
@@ -92,20 +93,10 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitForm(form: FormGroup) {
-    // console.log('form =>', this.editor);
-    console.log('Html =>', JSON.stringify(this.innerHtml));
-    // console.log('form =>', this.innerText);
+    this.markDownContent = html2markdown(form.value.editor);
   }
 
-  handleEvent(event) {
-    //  this.innerHtml = event.editor.editorContainer.innerHTML;
-    //   this.innerText = event.editor.editorContainer.innerText;
-    console.log('selection change', event);
-  }
-
-  onGetContent(event) {
-    this.innerHtml = event.event.content;
-    console.log('editor', event);
-    console.log('editor', event.event.target.undoManager.data);
+  onGetHtml(event){
+    this.htmlContent = event;
   }
 }

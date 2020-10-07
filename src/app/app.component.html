@@ -1,9 +1,25 @@
 <form [formGroup]="editorForm" (ngSubmit)="onSubmitForm(editorForm)" >
     <div>
-        <editor formControlName="editor" #ediorRef (onPreviewFormats)="handleEvent($event)" (onGetContent)="onGetContent($event)" [init]="config"></editor>
+        <editor formControlName="editor" #ediorRef [init]="config"></editor>
     </div>
 
     <div style="margin-top: 10px;">
         <button type="submit">Save</button>
     </div>
 </form>
+
+<div class="textarea--content">
+    <div *ngIf="markDownContent">
+        <label>Markdown</label>
+        <textarea rows="8" [ngModel]="markDownContent"></textarea>
+    </div>
+    
+    <div *ngIf="htmlContent">
+        <label>Html</label>
+        <textarea rows="8" [ngModel]="htmlContent"></textarea>
+    </div>    
+</div>
+
+<div class="markDownContent" style="display: none;">
+    <app-markdown (getHtml)="onGetHtml($event)" [text]=markDownContent></app-markdown>
+</div>

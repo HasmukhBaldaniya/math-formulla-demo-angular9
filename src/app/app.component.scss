@@ -1,0 +1,17 @@
+.textarea--content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+
+    textarea {
+        width: 400px;
+        height: 200px;
+        margin: 10px;
+    }
+
+    label {
+        display: block;
+        font-size: 20px;
+        margin-left: 10px;
+    }
+}
