@@ -93,6 +93,7 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitForm(form: FormGroup) {
+    console.log(form.value.editor);
     this.markDownContent = html2markdown(form.value.editor);
   }
 
