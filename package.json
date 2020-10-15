@@ -20,10 +20,11 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@tinymce/tinymce-angular": "^4.2.0",
-    "html2markdown": "^1.1.0",
     "dompurify": "^1.0.11",
     "highlight.js": "^9.15.8",
+    "html2markdown": "^1.1.0",
     "marked": "^0.7.0",
+    "mathml2latex": "^1.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

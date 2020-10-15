@@ -1,13 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import html2markdown from 'html2markdown';
+import MathMl2LaTeX from 'mathml2latex';
 
+class MathModel {
+  equation: string;
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
 export class AppComponent implements OnInit {
+
   @ViewChild('ediorRef', { static: true }) editor;
 
   config;
@@ -33,7 +45,7 @@ export class AppComponent implements OnInit {
       plugins: [
         'advlist autolink lists link image charmap print preview anchor image',
         'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount preview codesample textpattern',
+        'insertdatetime media table paste code help wordcount preview codesample textpattern latex',
       ],
       external_plugins: {
         tiny_mce_wiris: 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js',
@@ -42,30 +54,60 @@ export class AppComponent implements OnInit {
         'formatselect | bold italic backcolor | \
       alignleft aligncenter alignright alignjustify | \
       bullist numlist outdent indent | subScript SuperScript tiny_mce_wiris_formulaEditor link image tinydrive | undo redo removeformat code preview codesample | help',
+      theme_advanced_buttons2: 'latex',
       textpattern_patterns: [
-        {start: '*', end: '*', format: 'italic'},
-        {start: '**', end: '**', format: 'bold'},
-        {start: '~', end: '~', cmd: 'createLink', value: 'https://tiny.cloud'},
-        {start: '*', end: '*', format: 'italic'},
-        {start: '**', end: '**', format: 'bold'},
-        {start: '#', format: 'h1'},
-        {start: '##', format: 'h2'},
-        {start: '###', format: 'h3'},
-        {start: '####', format: 'h4'},
-        {start: '#####', format: 'h5'},
-        {start: '######', format: 'h6'},
-        {start: '1. ', cmd: 'InsertOrderedList'},
-        {start: '* ', cmd: 'InsertUnorderedList'},
-        {start: '- ', cmd: 'InsertUnorderedList'},
-        {start: '1. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'decimal' }},
-        {start: '1) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'decimal' }},
-        {start: 'a. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-alpha' }},
-        {start: 'a) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-alpha' }},
-        {start: 'i. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-roman' }},
-        {start: 'i) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-roman' }}
+        { start: '*', end: '*', format: 'italic' },
+        { start: '**', end: '**', format: 'bold' },
+        {
+          start: '~',
+          end: '~',
+          cmd: 'createLink',
+          value: 'https://tiny.cloud',
+        },
+        { start: '*', end: '*', format: 'italic' },
+        { start: '**', end: '**', format: 'bold' },
+        { start: '#', format: 'h1' },
+        { start: '##', format: 'h2' },
+        { start: '###', format: 'h3' },
+        { start: '####', format: 'h4' },
+        { start: '#####', format: 'h5' },
+        { start: '######', format: 'h6' },
+        { start: '1. ', cmd: 'InsertOrderedList' },
+        { start: '* ', cmd: 'InsertUnorderedList' },
+        { start: '- ', cmd: 'InsertUnorderedList' },
+        {
+          start: '1. ',
+          cmd: 'InsertOrderedList',
+          value: { 'list-style-type': 'decimal' },
+        },
+        {
+          start: '1) ',
+          cmd: 'InsertOrderedList',
+          value: { 'list-style-type': 'decimal' },
+        },
+        {
+          start: 'a. ',
+          cmd: 'InsertOrderedList',
+          value: { 'list-style-type': 'lower-alpha' },
+        },
+        {
+          start: 'a) ',
+          cmd: 'InsertOrderedList',
+          value: { 'list-style-type': 'lower-alpha' },
+        },
+        {
+          start: 'i. ',
+          cmd: 'InsertOrderedList',
+          value: { 'list-style-type': 'lower-roman' },
+        },
+        {
+          start: 'i) ',
+          cmd: 'InsertOrderedList',
+          value: { 'list-style-type': 'lower-roman' },
+        },
       ],
       language: 'en_GB',
-      forced_root_block: "p",
+      forced_root_block: 'p',
       tinydrive_token_provider(success, failure) {
         success({
           token:
@@ -93,11 +135,13 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitForm(form: FormGroup) {
-    console.log(form.value.editor);
-    this.markDownContent = html2markdown(form.value.editor);
+    debugger
+    const latex = MathMl2LaTeX.convert(form.value.editor); // => \frac{a}{b}
+    console.log(latex);
+    this.markDownContent = html2markdown(latex);
   }
 
-  onGetHtml(event){
+  onGetHtml(event) {
     this.htmlContent = event;
   }
 }
