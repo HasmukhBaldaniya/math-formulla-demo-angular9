@@ -1,7 +1,5 @@
 import {
   Component,
-  HostBinding,
-  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -9,9 +7,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import html2markdown from 'html2markdown';
 import MathMl2LaTeX from 'mathml2latex';
 
-class MathModel {
-  equation: string;
-}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
