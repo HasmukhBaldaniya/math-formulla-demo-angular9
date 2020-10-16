@@ -13,3 +13,5 @@ https://github.com/kates/html2markdown
 
 https://stackblitz.com/edit/angular-math-formula-support
 
+
+https://github.com/roniemartinez/latex2mathml

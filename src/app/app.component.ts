@@ -17,13 +17,11 @@ class MathModel {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-
 export class AppComponent implements OnInit {
-
   @ViewChild('ediorRef', { static: true }) editor;
 
   config;
-  markDownContent;
+  markDownContent: any = "";
   htmlContent;
 
   editorForm: FormGroup;
@@ -135,10 +133,32 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitForm(form: FormGroup) {
-    debugger
-    const latex = MathMl2LaTeX.convert(form.value.editor); // => \frac{a}{b}
-    console.log(latex);
-    this.markDownContent = html2markdown(latex);
+    console.log(form.value.editor);
+    const mySubString = [];
+    const latex = [];
+    const content =
+      '<h2><strong>hasmukh baldaniya</strong></h2><ul><li>sdfsfsdfd&nbsp;</li><li>dsfdsfdsf</li><li>dsfdsf</li><li>dsfdsfdsf</li><li>sdfdfdsf</li></ul><p>&nbsp;</p><ol><li>sdfsfsdfd&nbsp;</li><li>dsfdsfdsf</li><li>dsfdsf</li><li>dsfdsfdsf</li><li>sdfdfdsf</li></ol><p><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mfrac><mn>213123213</mn><mrow><mn>1233</mn><mi>d</mi><mi>f</mi><mi>s</mi><mi>d</mi><mi>f</mi></mrow></mfrac></msqrt></math></p><p>&nbsp;</p><p>asdsadasdsadsadsad</p><p>&nbsp;</p><p><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mi>d</mi><mrow><mi>d</mi><mi>w</mi><mi>q</mi><mi>e</mi><mi>w</mi><mi>q</mi><mi>e</mi><mi>w</mi><mi>q</mi><mi>e</mi><mi>w</mi><mi>q</mi><msub><mi>e</mi><mrow><mi>a</mi><mi>d</mi><mi>s</mi><mi>a</mi><mi>d</mi><mi>a</mi><mi>s</mi><mi>d</mi><mi>a</mi><mi>s</mi><mi>d</mi></mrow></msub></mrow></msup></msqrt></math></p>';
+
+    const temp = document.createElement('div');
+    temp.innerHTML = content;
+
+    const all = temp.getElementsByTagName('*');
+    let index = 0;
+    for (let i = 0, max = all.length; i < max; i++) {
+      const tagname = all[i] && all[i].tagName.match('math');
+      if (tagname !== null && tagname !== undefined) {
+        mySubString.push('<m>' + all[i].innerHTML + '</m>');
+        latex.push('<m>' + MathMl2LaTeX.convert(all[i].innerHTML) + '</m>');
+        // all[i].innerHTML = latex[index];
+        this.markDownContent = this.markDownContent + latex[index];
+        index++;
+      } else {
+        if (all[i] && all[i].innerHTML) {
+          this.markDownContent = this.markDownContent + html2markdown(all[i].innerHTML);
+        }
+      }
+    }
+    console.log('Html content =>', this.markDownContent);
   }
 
   onGetHtml(event) {
