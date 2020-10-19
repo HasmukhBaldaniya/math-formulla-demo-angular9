@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import html2markdown from 'html2markdown';
 import MathMl2LaTeX from 'mathml2latex';
@@ -16,7 +12,7 @@ export class AppComponent implements OnInit {
   @ViewChild('ediorRef', { static: true }) editor;
 
   config;
-  markDownContent: any = "";
+  markDownContent: any = '';
   htmlContent;
 
   editorForm: FormGroup;
@@ -129,10 +125,12 @@ export class AppComponent implements OnInit {
 
   onSubmitForm(form: FormGroup) {
     console.log(form.value.editor);
+    this.markDownContent = '';
+    this.htmlContent = '';
+
     const mySubString = [];
     const latex = [];
-    const content =
-      '<h2><strong>hasmukh baldaniya</strong></h2><ul><li>sdfsfsdfd&nbsp;</li><li>dsfdsfdsf</li><li>dsfdsf</li><li>dsfdsfdsf</li><li>sdfdfdsf</li></ul><p>&nbsp;</p><ol><li>sdfsfsdfd&nbsp;</li><li>dsfdsfdsf</li><li>dsfdsf</li><li>dsfdsfdsf</li><li>sdfdfdsf</li></ol><p><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mfrac><mn>213123213</mn><mrow><mn>1233</mn><mi>d</mi><mi>f</mi><mi>s</mi><mi>d</mi><mi>f</mi></mrow></mfrac></msqrt></math></p><p>&nbsp;</p><p>asdsadasdsadsadsad</p><p>&nbsp;</p><p><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mi>d</mi><mrow><mi>d</mi><mi>w</mi><mi>q</mi><mi>e</mi><mi>w</mi><mi>q</mi><mi>e</mi><mi>w</mi><mi>q</mi><mi>e</mi><mi>w</mi><mi>q</mi><msub><mi>e</mi><mrow><mi>a</mi><mi>d</mi><mi>s</mi><mi>a</mi><mi>d</mi><mi>a</mi><mi>s</mi><mi>d</mi><mi>a</mi><mi>s</mi><mi>d</mi></mrow></msub></mrow></msup></msqrt></math></p>';
+    const content = form.value.editor;
 
     const temp = document.createElement('div');
     temp.innerHTML = content;
@@ -149,7 +147,8 @@ export class AppComponent implements OnInit {
         index++;
       } else {
         if (all[i] && all[i].innerHTML) {
-          this.markDownContent = this.markDownContent + html2markdown(all[i].innerHTML);
+          this.markDownContent =
+            this.markDownContent + html2markdown(all[i].innerHTML);
         }
       }
     }
