@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MarkdownComponent } from './md2html/markdown.component';
+import { KatexModule } from 'ng-katex';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MarkdownComponent } from './md2html/markdown.component';
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
+    KatexModule,
     AppRoutingModule
   ],
   providers: [],

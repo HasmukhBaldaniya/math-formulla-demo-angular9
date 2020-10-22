@@ -17,6 +17,11 @@ export class AppComponent implements OnInit {
 
   editorForm: FormGroup;
 
+  equation = '\\sqrt{\\frac{asdasd}{asdsadsad}}';
+  options = {
+    displayMode: true,
+  };
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {

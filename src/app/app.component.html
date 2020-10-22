@@ -23,3 +23,7 @@
 <div class="markDownContent" style="display: none;">
     <app-markdown (getHtml)="onGetHtml($event)" [text]=markDownContent></app-markdown>
 </div>
+
+<div>
+    <ng-katex [equation]="equation"></ng-katex>
+</div>
