@@ -9,19 +9,16 @@ import { MarkdownComponent } from './md2html/markdown.component';
 import { KatexModule } from 'ng-katex';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MarkdownComponent
-  ],
+  declarations: [AppComponent, MarkdownComponent],
   imports: [
     BrowserModule,
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
     KatexModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
