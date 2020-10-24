@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   htmlContent;
 
   editorForm: FormGroup;
-  equation = '\\sqrt{\\frac{asdasd}{asdsadsad}}';
   equation1 = '\sqrt{\frac{asdasd}{asdsadsad}}';
 
   options = {
@@ -32,8 +31,7 @@ export class AppComponent implements OnInit {
     const str = this.equation1.replace(/\\/g, '\\\\');
     this.equation1 = JSON.parse(str);
     this.equation1 = this.equation1.replace(/\\\\/g, '\\');
-    console.log('outpul =>', this.equation1);
-    console.log('Equation 1 =>', this.equation);
+    console.log('output =>', this.equation1);
   }
   initialization() {
     this.config = {
@@ -131,7 +129,7 @@ export class AppComponent implements OnInit {
   createForm() {
     this.editorForm = this.fb.group({
       editor: [
-        '<math xmlns="http://www.w3.org/1998/Math/MathML"> <msqrt> <mfrac> <mrow> <mi>a</mi> <mi>s</mi> <mi>d</mi> <mi>a</mi> <mi>s</mi> <mi>d</mi> </mrow> <mrow> <mi>a</mi> <mi>s</mi> <mi>d</mi> <mi>s</mi> <mi>a</mi> <mi>d</mi> <mi>s</mi> <mi>a</mi> <mi>d</mi> </mrow> </mfrac> </msqrt> </math>',
+        '<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <msqrt> <mfrac> <mrow> <mi>a</mi> <mi>s</mi> <mi>d</mi> <mi>a</mi> <mi>s</mi> <mi>d</mi> </mrow> <mrow> <mi>a</mi> <mi>s</mi> <mi>d</mi> <mi>s</mi> <mi>a</mi> <mi>d</mi> <mi>s</mi> <mi>a</mi> <mi>d</mi> </mrow> </mfrac> </msqrt> </math>',
       ],
     });
   }
